@@ -14,9 +14,6 @@ class KinoukrDomCrawlerParserAdapter implements ParserInterface
         $crawler = new Crawler();
     }
 
-
-
-
     /**
      * @param string $siteContent
      * @return mixed
@@ -25,14 +22,16 @@ class KinoukrDomCrawlerParserAdapter implements ParserInterface
     {
         $crawler = new Crawler($siteContent);
         $crawler = $crawler->filterXPath('//*[@class="wrap"]');
-        $crawler1 = $crawler->filterXPath('//*[@class="ftitle"]')->filter('h1');
-        $title ="";
+        $crawler1 = $crawler->filterXPath('//*[@class="ftitle"]')
+            ->filter('h1');
+        $title = "";
         foreach ($crawler1 as $domElement) {
             $title = $domElement->nodeValue;
             break;
         }
         $crawler2 = $crawler->filterXPath('//*[@class="fposter"]');
-        $poster =$crawler2->filter('a')->attr('href');
+        $poster = $crawler2->filter('a')
+            ->attr('href');
         $description = "";
         $crawler3 = $crawler->filterXPath('//*[@class="fdesc full-text noselect clearfix"]');
         foreach ($crawler3 as $domElement) {
