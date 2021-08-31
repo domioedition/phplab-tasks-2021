@@ -13,15 +13,24 @@ class FilmixParserStrategy implements ParserInterface
     public function parseContent(string $siteContent)
     {
         $siteContent = mb_convert_encoding($siteContent, "UTF-8", "windows-1251");
-        $cut1 = substr($siteContent, strpos($siteContent, "fullstory"));
-        $cut2 = substr($cut1, strpos($cut1, "img src=\"") + 9);
-        $poster = substr($cut2, 0, strpos($cut2, "\""));
-        $cut3 = substr($cut2, strpos($cut2, "name\">") + 6);
-        $title = substr($cut3, 0, strpos($cut3, "<"));
-        $descriptionStart = strpos($cut3, "div class=\"full-story\">") + 23;
-        $descriptionStartCut = substr($cut3, $descriptionStart);
-        $descriptionEnd = strpos($descriptionStartCut, "</div>");
-        $description = substr($descriptionStartCut, 0, $descriptionEnd);
+        $cuts = ["startCut" => "fullstory", "startPoster" => "img src=\"", "endPoster" => "\">", "startTitle" => "name\">", "endTitle" => "<", "startDescription" => "div class=\"full-story\">", "endDescription" => "</div>"];
+        $title = "";
+        $poster = "";
+        $description = "";
+        $parts = [];
+        foreach ($cuts as $nameOfCut => $cut) {
+            $parts = explode($cut, $siteContent, 2);
+            $siteContent = $parts[1];
+            if ($nameOfCut == "endPoster") {
+                $poster = $parts[0];
+            }
+            if ($nameOfCut == "endTitle") {
+                $title = $parts[0];
+            }
+            if ($nameOfCut == "endDescription") {
+                $description = $parts[0];
+            }
+        }
         $movie = new Movie();
         $movie->setTitle($title);
         $movie->setPoster($poster);
