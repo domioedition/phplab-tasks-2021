@@ -28,8 +28,7 @@ class Arrays implements ArraysInterface
         $counter = 0;
         $uniqueDigits = [];
         foreach ($input as $digit) {
-            isset($uniqueDigits[$digit]) ? $uniqueDigits[$digit] = false :
-            $uniqueDigits[$digit] = true;
+            $uniqueDigits[$digit] = !isset($uniqueDigits[$digit]);
         }
 
 
