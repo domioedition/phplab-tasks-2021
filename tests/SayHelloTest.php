@@ -19,20 +19,29 @@ class SayHelloTest extends TestCase
         $this->assertEquals($expected, $this->functions->sayHello());
     }
 
-
-    public function testNegative()
+    
+    /**
+     * @dataProvider negativeDataProvider
+     */
+    public function testNegative($expected)
     {
-        $this->assertNotEquals("bye", $this->functions->sayHello());
+        $this->assertNotEquals($expected, $this->functions->sayHello());
     }
 
     public function positiveDataProvider(): array
-    {
-        return [
-            ['Hello'],
-            ['Hello'],
-            ['Hello'],
-            ['Hello'],
-            ['Hello'],
-        ];
-    }
+        {
+            return [
+                ['Hello']
+            ];
+        }
+
+    
+    public function negativeDataProvider(): array
+        {
+            return [
+                ['Hi'],
+                ['bye'],
+                ['orange']
+            ];
+        }
 }
