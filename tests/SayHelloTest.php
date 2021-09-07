@@ -14,25 +14,25 @@ class SayHelloTest extends TestCase
     /**
      * @dataProvider positiveDataProvider
      */
-    public function testPositive($input, $expected)
+    public function testPositive($expected)
     {
-        $this->assertEquals($expected, $this->functions->sayHello($input));
+        $this->assertEquals($expected, $this->functions->sayHello());
     }
 
 
     public function testNegative()
     {
-        $this->assertNotEquals("bye", $this->functions->sayHello("hello"));
+        $this->assertNotEquals("bye", $this->functions->sayHello());
     }
 
     public function positiveDataProvider(): array
     {
         return [
-            ['dolphin', 'Hello'],
-            ['alaska', 'Hello'],
-            ['europe', 'Hello'],
-            ['php', 'Hello'],
-            ['the', 'Hello'],
+            ['Hello'],
+            ['Hello'],
+            ['Hello'],
+            ['Hello'],
+            ['Hello'],
         ];
     }
 }

@@ -98,6 +98,6 @@ class Functions
             }
         }
 
-        return countArguments(...fun_get_args());
+        return $this->countArguments(...fun_get_args());
     }
 }
