@@ -90,14 +90,16 @@ class Functions
      * @return array
      * @throws \InvalidArgumentException
      */
-    public function countArgumentsWrapper(): array
+    public function countArgumentsWrapper(...$args): array
     {
-        foreach (func_get_args() as $arg) {
+        
+        foreach ($args as $arg) {
             if (! is_string($arg)) {
                 throw new \InvalidArgumentException("Error");
             }
         }
 
-        return $this->countArguments(...fun_get_args());
+        
+        return $this->countArguments(...$args);
     }
 }
