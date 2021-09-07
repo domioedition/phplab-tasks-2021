@@ -26,17 +26,9 @@ class Arrays implements ArraysInterface
     public function getUniqueValue(array $input): int
     {
         $counter = 0;
-        $uniqueDigits = [];
-        foreach ($input as $digit) {
-            $uniqueDigits[$digit] = !isset($uniqueDigits[$digit]);
-        }
-
-
-        foreach ($uniqueDigits as $key => $value) {
-            if ($value) {
-                if ($counter == 0 || $counter > $key) {
-                    $counter = $key;
-                }
+        foreach (array_count_values($input) as $value => $count) {
+            if ($count == 1 && ($counter > $value || $counter == 0)) {
+                $counter = $value;
             }
         }
         return $counter;
