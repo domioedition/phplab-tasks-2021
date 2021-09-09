@@ -13,7 +13,7 @@ class FilmixParserStrategy implements ParserInterface
     public function parseContent(string $siteContent)
     {
         $siteContent = mb_convert_encoding($siteContent, "UTF-8", "windows-1251");
-        $cuts = ["startCut" => "fullstory", "startPoster" => "img src=\"", "endPoster" => "\">", "startTitle" => "name\">", "endTitle" => "<", "startDescription" => "div class=\"full-story\">", "endDescription" => "</div>"];
+        $cuts = ["startCut" => "fullstory", "startPoster" => "img src=\"", "endPoster" => "\"", "startTitle" => "name\">", "endTitle" => "<", "startDescription" => "div class=\"full-story\">", "endDescription" => "</div>"];
         $title = "";
         $poster = "";
         $description = "";
