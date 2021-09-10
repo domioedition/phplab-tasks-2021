@@ -9,9 +9,9 @@ class KinoukrDomCrawlerParserAdapter implements ParserInterface
 {
     public $crawler;
 
-    public function __constructor()
+    public function __construct()
     {
-        $crawler = new Crawler();
+        $this->crawler = new Crawler();
     }
 
     /**
@@ -20,24 +20,10 @@ class KinoukrDomCrawlerParserAdapter implements ParserInterface
      */
     public function parseContent(string $siteContent)
     {
-        $crawler = new Crawler($siteContent);
-        $crawler = $crawler->filterXPath('//*[@class="wrap"]');
-        $crawler1 = $crawler->filterXPath('//*[@class="ftitle"]')
-            ->filter('h1');
-        $title = "";
-        foreach ($crawler1 as $domElement) {
-            $title = $domElement->nodeValue;
-            break;
-        }
-        $crawler2 = $crawler->filterXPath('//*[@class="fposter"]');
-        $poster = $crawler2->filter('a')
-            ->attr('href');
-        $description = "";
-        $crawler3 = $crawler->filterXPath('//*[@class="fdesc full-text noselect clearfix"]');
-        foreach ($crawler3 as $domElement) {
-            $description = $domElement->nodeValue;
-            break;
-        }
+        $this->crawler->add($siteContent);
+        $title =  $this->crawler->filter('.ftitle > h1')->text();
+        $poster = $this->crawler->filter('.fposter > a')->first()->attr('href');
+        $description = $this->crawler->filter('.fdesc')->text();
         $movie = new Movie();
         $movie->setTitle($title);
         $movie->setPoster($poster);
