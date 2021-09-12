@@ -6,11 +6,6 @@ use GuzzleHttp\Client;
 
 class GuzzleAdapter implements TransportInterface
 {
-    /**
-     * @param string $url
-     * @return string
-     */
-
 
     public $client;
 
@@ -19,7 +14,10 @@ class GuzzleAdapter implements TransportInterface
         $this->client = new Client();
     }
 
-
+    /**
+     * @param string $url
+     * @return string
+     */
     public function getContent(string $url): string
     {
         $response = $this->client->get($url);

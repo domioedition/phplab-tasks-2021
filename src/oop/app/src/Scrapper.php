@@ -3,6 +3,8 @@
 namespace src\oop\app\src;
 
 use src\oop\app\src\Models\Movie;
+use src\oop\app\src\Parsers\ParserInterface;
+use src\oop\app\src\Transporters\TransportInterface;
 
 /**
  * Create Class - Scrapper with method getMovie().
@@ -17,7 +19,7 @@ class Scrapper
     public $transport;
     public $parser;
 
-    public function __construct($transport, $parser)
+    public function __construct(TransportInterface $transport, ParserInterface $parser)
     {
         $this->transport = $transport;
         $this->parser = $parser;
@@ -25,6 +27,11 @@ class Scrapper
 
     public function getMovie($url): Movie
     {
-        return $this->parser->parseContent($this->transport->getContent($url));
+        $data = $this->parser->parseContent($this->transport->getContent($url));
+        $movie = new Movie();
+        $movie->setTitle($data["title"]);
+        $movie->setPoster($data["poster"]);
+        $movie->setDescription($data["description"]);
+        return $movie;
     }
 }

@@ -24,10 +24,6 @@ class KinoukrDomCrawlerParserAdapter implements ParserInterface
         $title =  $this->crawler->filter('.ftitle > h1')->text();
         $poster = $this->crawler->filter('.fposter > a')->first()->attr('href');
         $description = $this->crawler->filter('.fdesc')->text();
-        $movie = new Movie();
-        $movie->setTitle($title);
-        $movie->setPoster($poster);
-        $movie->setDescription($description);
-        return $movie;
+        return ["title"=>$title,"poster"=>$poster,"description"=> $description];
     }
 }

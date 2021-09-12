@@ -1,0 +1,40 @@
+<?php
+
+use PHPUnit\Framework\TestCase;
+
+class GetUniqueFirstLetters extends TestCase
+{
+    /**
+     * @dataProvider positiveDataProvider
+     */
+    public function testGetUniqueFirstLettersTest($input, $expected)
+    {
+        $this->assertEquals($expected, getUniqueFirstLetters($input));
+    }
+
+    public function positiveDataProvider(): array
+    {
+        return [
+            [
+                [
+                    ['name' => 'potato', 'tags' => ['vegetable', 'yellow']],
+                    ['name' => 'apple', 'tags' => ['fruit', 'green']],
+                    ['name' => 'orange', 'tags' => ['fruit', 'yellow']],
+                ],
+                [
+                    "A","O","P"
+                ]
+            ],
+            [
+                [
+                    ['name' => 'Php for the Web: Visual QuickStart Guide', 'tags' => ['php', 'mysql']],
+                    ['name' => 'Modern PhP: New Features and Good Practices', 'tags' => ['php']],
+                    ['name' => 'Learning php, mysql & JavaScript', 'tags' => ['php', 'mysql', 'javascript']],
+                ],
+                [
+                    "P","M","L"
+                ]
+            ],
+        ];
+    }
+}

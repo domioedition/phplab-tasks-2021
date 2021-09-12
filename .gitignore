@@ -1,3 +1,4 @@
-.idea
+ .idea
 vendor
 src/db/config.php
+.php-cs-fixer.cache

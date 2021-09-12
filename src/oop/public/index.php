@@ -53,7 +53,7 @@ $kinoukrMovie = $scrapperFactory->create('kinoukr')->getMovie('https://kinoukr.c
         <p><?= $kinoukrMovie->getDescription(); ?></p>
     </div>
 </div>
-
+ 
 </body>
 </html>
 
