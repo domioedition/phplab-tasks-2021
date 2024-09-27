@@ -1,0 +1,178 @@
+<?php
+
+namespace arrays;
+
+class Arrays implements ArraysInterface
+{
+    /**
+     * @param array $input
+     * @return array
+     */
+    public function repeatArrayValues(array $input): array
+    {
+        $result = [];
+        foreach ($input as $element) {
+            for ($i = 0; $i < $element; $i++) {
+                array_push($result, $element);
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * @param array $input
+     * @return int
+     */
+    public function getUniqueValue(array $input): int
+    {
+        $counter = 0;
+        $uniqueDigits = [];
+        foreach ($input as $digit) {
+            isset($uniqueDigits[$digit]) ? $uniqueDigits[$digit] = false :
+            $uniqueDigits[$digit] = true;
+        }
+
+
+        foreach ($uniqueDigits as $key => $value) {
+            if ($value) {
+                if ($counter == 0 || $counter > $key) {
+                    $counter = $key;
+                }
+            }
+        }
+        return $counter;
+    }
+
+    /**
+     * @param array $input
+     * @return array
+     */
+    public function groupByTag1(array $input): array
+    {
+    /*
+        $result = array();
+
+        foreach ($input as $foodItem) {
+            foreach (
+	    $foodItem['tags']
+	    as $tag) {
+                if (isset($result[$tag])) {
+                    continue;
+                } else {
+                    $result[$tag] = [];
+                }
+            }
+        }
+
+echo "____________";
+var_dump($result);
+        foreach ($input as $foodItem) {
+            foreach ($foodItem["tags"] as $tag) {
+                if (isset($result[$tag])) {
+                    array_push($result[$tag], $foodItem["name"]);
+                }
+            }
+        }
+
+        ksort($result);
+
+        return $result;
+	*/
+
+
+$result = array();
+        
+//        $input = $arr2;
+        
+        //var_dump($input);
+
+
+        foreach ($input as $foodItem) {
+	$tags = [];
+	if(isset($foodItem["tags"])){
+        $tags = $foodItem["tags"];
+}else{
+        $tags = $foodItem[0];
+}
+            foreach ($tags as $tag) {
+                if (isset($result[$tag])) {
+                    continue;
+                } else {
+                    $result[$tag] = [];
+                }
+            }
+
+        }
+        echo "fffffffff";
+        var_dump($result);
+	
+        foreach ($input as $foodItem) {
+	$tags =[]; 
+	if(isset($foodItem["tags"])){
+	$tags = $foodItem["tags"];
+}else{
+$tags = $foodItem[1];
+}
+            foreach ($tags as $tag) {
+	    $name = "";
+	    if(isset($foodItem["name"])){
+	    $name = $foodItem["name"];
+	    }else{
+$name = $foodItem[0];
+}
+                    array_push($result[$tag], $name);
+            }
+        }
+echo "aaaaaaaaaaaaaaaaaaa";        
+        var_dump($result);
+
+        ksort($result);
+        
+
+        return $result;
+
+
+
+    }
+
+
+
+  public function groupByTag(array $input): array{
+$result= [];
+foreach($input as $element){
+$name = $element["name"];
+$tags = $element["tags"];
+//var_dump($element);
+//echo "\n";
+foreach($tags as $tag){
+//echo "tags=" . "\n" . $tag ."\n";
+if(!isset($result[$tag])){
+$result[$tag] = [];
+}
+if(!in_array($name,$result[$tag])){
+array_push($result[$tag],$name);
+}
+
+
+
+//echo "start" . "\n";
+//var_dump($result);
+//echo "\n" . "finish";
+
+}
+    
+}
+
+foreach($result as  $key => $value){
+echo var_dump($value) . "\n";
+sort($value);
+$result[$key] = $value;
+echo var_dump($value). "\n";
+}
+
+return $result;
+
+}
+
+
+}
